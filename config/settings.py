@@ -20,10 +20,18 @@ except ImportError:
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config("SECRET_KEY", default="change-me-in-production")
-DEBUG = config("DEBUG", default=True, cast=bool)
-ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="127.0.0.1,localhost", cast=Csv())
-CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS", default="", cast=Csv())
 
+DEBUG = False
+
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    "sankesh-blog.onrender.com",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://sankesh-blog.onrender.com",
+]
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
