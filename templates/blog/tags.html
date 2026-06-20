@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-header"><div class="container"><h1>Tags</h1><p>Follow the ideas you care about.</p></div></section>
+<section class="container py-5"><div class="tag-cloud glass-card p-4">
+  {% for tag in tags %}<a href="{{ tag.get_absolute_url }}">#{{ tag.name }} <small>{{ tag.post_total }}</small></a>{% endfor %}
+</div></section>
+{% endblock %}

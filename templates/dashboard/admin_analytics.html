@@ -1,0 +1,4 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="container py-5"><h1>Analytics Overview</h1><div class="stat-grid"><div class="glass-card stat"><span>Posts</span><strong>{{ total_posts }}</strong></div><div class="glass-card stat"><span>Views</span><strong>{{ total_views }}</strong></div><div class="glass-card stat"><span>Comments</span><strong>{{ comment_count }}</strong></div></div><div class="glass-card p-4 mt-4"><h2>Popular Posts</h2>{% for post in popular_posts %}<p>{{ post.title }} · {{ post.view_count }} views</p>{% endfor %}</div></section>
+{% endblock %}

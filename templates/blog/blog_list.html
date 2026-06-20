@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}{{ heading|default:"Articles" }} · Sankesh Blog{% endblock %}
+{% block content %}
+<section class="page-header">
+  <div class="container">
+    <h1>{{ heading|default:"Articles" }}</h1>
+    {% if query %}<p>Search results for "{{ query }}"</p>{% else %}<p>Deep reads from the Sankesh Blog community.</p>{% endif %}
+  </div>
+</section>
+<section class="container py-5">
+  <div class="row g-4">
+    {% for post in page_obj %}
+      {% include "blog/post_card.html" %}
+    {% empty %}
+      <div class="col-12"><div class="glass-card p-4">No articles found.</div></div>
+    {% endfor %}
+  </div>
+  {% if page_obj.paginator.num_pages > 1 %}
+    <nav class="mt-5"><ul class="pagination justify-content-center">
+      {% if page_obj.has_previous %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>{% endif %}
+      <li class="page-item active"><span class="page-link">{{ page_obj.number }}</span></li>
+      {% if page_obj.has_next %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>{% endif %}
+    </ul></nav>
+  {% endif %}
+</section>
+{% endblock %}

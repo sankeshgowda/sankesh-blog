@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}{{ post.seo_title }} · Sankesh Blog{% endblock %}
+{% block meta_description %}{{ post.seo_description }}{% endblock %}
+{% block content %}
+<article>
+  <header class="detail-hero {% if post.featured_image %}has-image{% endif %}" {% if post.featured_image %}style="background-image:url('{{ post.featured_image.url }}')"{% endif %}>
+    <div class="container">
+      <span class="badge bg-info text-dark">{{ post.category|default:"Article" }}</span>
+      <h1>{{ post.title }}</h1>
+      <div class="detail-meta">By <a href="{% url 'blog:author' post.author.username %}">{{ post.author.username }}</a> · {{ post.reading_time }} min read · {{ post.view_count }} views</div>
+    </div>
+  </header>
+  <div class="container article-shell">
+    <aside class="share-rail glass-card">
+      <form method="post" action="{% url 'blog:like' post.slug %}">{% csrf_token %}<button class="icon-btn {% if liked %}active{% endif %}" type="submit">♥</button></form>
+      <form method="post" action="{% url 'blog:bookmark' post.slug %}">{% csrf_token %}<button class="icon-btn {% if bookmarked %}active{% endif %}" type="submit">★</button></form>
+      <a class="icon-btn" href="https://twitter.com/intent/tweet?text={{ post.title|urlencode }}&url={{ request.build_absolute_uri|urlencode }}">↗</a>
+    </aside>
+    <div class="article-body glass-card">
+      <div class="content">{{ post.content|safe }}</div>
+      <div class="tag-row">{% for tag in post.tags.all %}<a href="{{ tag.get_absolute_url }}">#{{ tag.name }}</a>{% endfor %}</div>
+    </div>
+  </div>
+</article>
+
+<section class="container py-5">
+  <div class="section-heading"><h2>Related Articles</h2></div>
+  <div class="row g-4">{% for post in related_posts %}{% include "blog/post_card.html" %}{% endfor %}</div>
+</section>
+
+<section class="container pb-5">
+  <div class="glass-card p-4">
+    <h2>Comments</h2>
+    {% if user.is_authenticated %}
+      <form method="post" class="mb-4">{% csrf_token %}{{ comment_form.as_p }}<button class="btn btn-primary">Comment</button></form>
+    {% else %}
+      <p><a href="{% url 'account_login' %}">Login</a> to comment.</p>
+    {% endif %}
+    {% for comment in comments %}
+      <div class="comment">
+        <strong>{{ comment.user.username }}</strong><p>{{ comment.content|linebreaks }}</p>
+        {% for reply in comment.replies.all %}<div class="comment reply"><strong>{{ reply.user.username }}</strong><p>{{ reply.content|linebreaks }}</p></div>{% endfor %}
+      </div>
+    {% empty %}<p class="text-muted">No comments yet.</p>{% endfor %}
+  </div>
+</section>
+{% endblock %}

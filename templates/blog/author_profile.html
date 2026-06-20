@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-header"><div class="container author-header">
+  {% if author_obj.profile.profile_picture %}<img src="{{ author_obj.profile.profile_picture.url }}" alt="{{ author_obj.username }}">{% endif %}
+  <div><h1>{{ author_obj.get_full_name|default:author_obj.username }}</h1><p>{{ author_obj.profile.bio|default:"Sankesh Blog author." }}</p></div>
+</div></section>
+<section class="container py-5"><div class="row g-4">{% for post in page_obj %}{% include "blog/post_card.html" %}{% endfor %}</div></section>
+{% endblock %}

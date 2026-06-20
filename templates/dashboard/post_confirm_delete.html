@@ -1,0 +1,4 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="container py-5"><div class="glass-card p-4"><h1>Delete post?</h1><p>{{ post.title }}</p><form method="post">{% csrf_token %}<button class="btn btn-danger">Delete</button><a class="btn btn-outline-light" href="{% url 'dashboard:my_posts' %}">Cancel</a></form></div></section>
+{% endblock %}

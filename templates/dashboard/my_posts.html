@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">{% endblock %}
+{% block content %}
+<section class="dashboard-wrap container py-5">{% include "dashboard/nav.html" %}
+  <div class="dashboard-main"><div class="section-heading"><h1>My Posts</h1><a class="btn btn-primary" href="{% url 'dashboard:post_create' %}">New Post</a></div>
+    <div class="glass-card table-responsive p-3"><table class="table align-middle"><thead><tr><th>Title</th><th>Status</th><th>Views</th><th></th></tr></thead><tbody>
+      {% for post in posts %}<tr><td>{{ post.title }}</td><td>{{ post.status }}</td><td>{{ post.view_count }}</td><td><a href="{% url 'dashboard:post_update' post.slug %}">Edit</a> · <a href="{% url 'dashboard:post_delete' post.slug %}">Delete</a></td></tr>{% endfor %}
+    </tbody></table></div>
+  </div>
+</section>
+{% endblock %}

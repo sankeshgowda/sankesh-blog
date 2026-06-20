@@ -1,0 +1,8 @@
+<aside class="dashboard-nav glass-card">
+  <a href="{% url 'dashboard:home' %}">Overview</a>
+  <a href="{% url 'dashboard:my_posts' %}">My Posts</a>
+  <a href="{% url 'dashboard:bookmarks' %}">Bookmarks</a>
+  <a href="{% url 'dashboard:analytics' %}">Analytics</a>
+  <a href="{% url 'accounts:profile' %}">Profile</a>
+  <form method="post" action="{% url 'account_logout' %}">{% csrf_token %}<button class="nav-link-like">Logout</button></form>
+</aside>

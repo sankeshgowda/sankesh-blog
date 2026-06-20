@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-header"><div class="container"><h1>Categories</h1><p>Browse writing by topic.</p></div></section>
+<section class="container py-5"><div class="row g-4">
+  {% for category in categories %}
+    <div class="col-md-6 col-lg-4"><a class="category-card glass-card" href="{{ category.get_absolute_url }}"><h3>{{ category.name }}</h3><p>{{ category.description|default:"Explore the latest articles." }}</p><span>{{ category.post_total }} posts</span></a></div>
+  {% endfor %}
+</div></section>
+{% endblock %}
